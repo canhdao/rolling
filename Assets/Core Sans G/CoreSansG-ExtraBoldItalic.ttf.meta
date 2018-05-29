@@ -1,0 +1,38 @@
+fileFormatVersion: 2
+guid: d2515e50134b2ec488d2fc3708b0b821
+timeCreated: 1522727655
+licenseType: Pro
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Core Sans G
+  fontNames:
+  - Core Sans G
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 84bd40b0cd6af5c4f8a06a6879766d97, type: 3}
+  - {fileID: 12800000, guid: 0fbcadb05358ba24ebae808700b284e1, type: 3}
+  - {fileID: 12800000, guid: 1e8ca8d3f259d844ebf7fc9db59775ec, type: 3}
+  - {fileID: 12800000, guid: 9c3505a5c8f5cdc47881fff75a521dc3, type: 3}
+  - {fileID: 12800000, guid: 54f177b553b0b8d45ae2eb0da61eb3ba, type: 3}
+  - {fileID: 12800000, guid: 9f71ac76e66c45c439525d31a9b73384, type: 3}
+  - {fileID: 12800000, guid: 12805ed684d0432458c5b316fb5eb982, type: 3}
+  - {fileID: 12800000, guid: cc259738f5acafb40b9c071661f7a7ec, type: 3}
+  - {fileID: 12800000, guid: b3f9e2d8a278168448e2a7af4a0974ee, type: 3}
+  - {fileID: 12800000, guid: 54f0f0d96b3157f408f31d3c93d6a685, type: 3}
+  - {fileID: 12800000, guid: 39b5a31cf690f8b4cb2c993bcb0c55b4, type: 3}
+  - {fileID: 12800000, guid: 7ce641fc3b7eb64478391d48425b5257, type: 3}
+  - {fileID: 12800000, guid: 3a6e1f1d6cf0c7a469b6cab893d48117, type: 3}
+  - {fileID: 12800000, guid: b6ee8d5d8df658e47946844aa07cbf5f, type: 3}
+  - {fileID: 12800000, guid: 128d27ae7b8229a43b21e99c643f4033, type: 3}
+  - {fileID: 12800000, guid: 44a180ef310a41c48b190d1d5f7a6cd8, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

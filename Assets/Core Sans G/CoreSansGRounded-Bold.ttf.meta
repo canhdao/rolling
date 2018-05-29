@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: ec8c9e81d70f8e945a3413e21a3b1472
+timeCreated: 1522727655
+licenseType: Pro
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Core Sans G Rounded
+  fontNames:
+  - Core Sans G Rounded
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 02838f9236c0e3c42b6d4809359d86bd, type: 3}
+  - {fileID: 12800000, guid: 9db71e953b81d9f49ba487abff8bb8cc, type: 3}
+  - {fileID: 12800000, guid: 168a6479c46082344827557788cc2616, type: 3}
+  - {fileID: 12800000, guid: 7e72105de1752e24188e7879d1146eb9, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

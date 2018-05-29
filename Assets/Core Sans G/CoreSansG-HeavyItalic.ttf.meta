@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0fbcadb05358ba24ebae808700b284e1
+timeCreated: 1522727654
+licenseType: Pro
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Core Sans G
+  fontNames:
+  - Core Sans G
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
