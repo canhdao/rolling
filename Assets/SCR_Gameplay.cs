@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
+using GoogleMobileAds.Api;
 
 public enum State {
 	READY,
@@ -67,6 +68,8 @@ public class SCR_Gameplay : MonoBehaviour {
 	private const float speedRange = 2f;
 	private const float speedMin = 1.4f;
 	private const float speedAccelRev = 70f;
+
+	private InterstitialAd interstitial;
 	
 	// Use this for initialization
 	void Start () {
@@ -155,6 +158,37 @@ public class SCR_Gameplay : MonoBehaviour {
 		Time.timeScale = speedMin;
 		
 		state = State.READY;
+
+		#if UNITY_ANDROID
+			string appId = "ca-app-pub-3940256099942544~3347511713";
+		#elif UNITY_IPHONE
+			string appId = "ca-app-pub-3940256099942544~1458002511";
+		#else
+			string appId = "unexpected_platform";
+		#endif
+
+		// Initialize the Google Mobile Ads SDK.
+		MobileAds.Initialize(appId);
+		RequestInterstitial();
+	}
+
+	private void RequestInterstitial()
+	{
+		#if UNITY_ANDROID
+			string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+		#elif UNITY_IPHONE
+			string adUnitId = "ca-app-pub-3940256099942544/4411468910";
+		#else
+			string adUnitId = "unexpected_platform";
+		#endif
+
+		// Initialize an InterstitialAd.
+		interstitial = new InterstitialAd(adUnitId);
+
+		// Create an empty ad request.
+		AdRequest request = new AdRequest.Builder().Build();
+		// Load the interstitial with the request.
+		interstitial.LoadAd(request);
 	}
 	
 	void Update () {
@@ -198,6 +232,10 @@ public class SCR_Gameplay : MonoBehaviour {
 		state = State.FINISH;
 		scrCamera.ZoomIn();
 		Invoke("Replay", 3);
+
+		if (interstitial.IsLoaded()) {
+			interstitial.Show();
+		}
 	}
 	
 	private void Replay() {
