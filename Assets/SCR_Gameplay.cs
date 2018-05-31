@@ -70,6 +70,9 @@ public class SCR_Gameplay : MonoBehaviour {
 	private const float speedAccelRev = 70f;
 
 	private InterstitialAd interstitial;
+
+	private const float TIME_SHOW_ADS = 30;
+	private static float timeShowAds = 0;
 	
 	// Use this for initialization
 	void Start () {
@@ -160,24 +163,25 @@ public class SCR_Gameplay : MonoBehaviour {
 		state = State.READY;
 
 		#if UNITY_ANDROID
-			string appId = "ca-app-pub-3940256099942544~3347511713";
+			string appId = "ca-app-pub-0081066185741622~3790493478";
 		#elif UNITY_IPHONE
-			string appId = "ca-app-pub-3940256099942544~1458002511";
+			string appId = "ca-app-pub-0081066185741622~1392680402";
 		#else
 			string appId = "unexpected_platform";
 		#endif
 
 		// Initialize the Google Mobile Ads SDK.
 		MobileAds.Initialize(appId);
+
 		RequestInterstitial();
 	}
 
 	private void RequestInterstitial()
 	{
 		#if UNITY_ANDROID
-			string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+			string adUnitId = "ca-app-pub-0081066185741622/3658507823";
 		#elif UNITY_IPHONE
-			string adUnitId = "ca-app-pub-3940256099942544/4411468910";
+			string adUnitId = "ca-app-pub-0081066185741622/7331402792";
 		#else
 			string adUnitId = "unexpected_platform";
 		#endif
@@ -186,11 +190,11 @@ public class SCR_Gameplay : MonoBehaviour {
 		interstitial = new InterstitialAd(adUnitId);
 
 		// Create an empty ad request.
-		AdRequest request = new AdRequest.Builder().Build();
+		AdRequest request = new AdRequest.Builder().AddTestDevice("f76690eb0615cccc73b4c57165f1621e").Build();
 		// Load the interstitial with the request.
 		interstitial.LoadAd(request);
 	}
-	
+
 	void Update () {
 		if (Input.touchCount > 0) {
 			if (Input.GetTouch(0).phase == TouchPhase.Began) {
@@ -213,7 +217,9 @@ public class SCR_Gameplay : MonoBehaviour {
 			else if (state == State.PLAY) {
 				scrSphere.Jump();
 			}
-		}		
+		}
+
+		timeShowAds += Time.unscaledDeltaTime;
 	}
 	
 	private void Play() {
@@ -231,13 +237,21 @@ public class SCR_Gameplay : MonoBehaviour {
 	public void GameOver() {
 		state = State.FINISH;
 		scrCamera.ZoomIn();
-		Invoke("Replay", 3);
 
-		if (interstitial.IsLoaded()) {
-			interstitial.Show();
+		if (timeShowAds >= TIME_SHOW_ADS && interstitial.IsLoaded()) {
+			Invoke("ShowAds", 3);
 		}
+
+		Invoke("Replay", 3.5f);
 	}
 	
+	private void ShowAds() {
+		interstitial.Show();
+		interstitial.Destroy();
+		RequestInterstitial();
+		timeShowAds = 0;
+	}
+
 	private void Replay() {
 		SceneManager.LoadScene("Jump");
 	}

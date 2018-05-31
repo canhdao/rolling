@@ -48,7 +48,10 @@ namespace GoogleMobileAds.Api
             this.adLoaderClient.OnCustomNativeTemplateAdLoaded +=
                     delegate (object sender, CustomNativeEventArgs args)
             {
-                this.OnCustomNativeTemplateAdLoaded(this, args);
+                if (this.OnCustomNativeTemplateAdLoaded != null)
+                {
+                    this.OnCustomNativeTemplateAdLoaded(this, args);
+                }
             };
             this.adLoaderClient.OnAdFailedToLoad += delegate (
                 object sender, AdFailedToLoadEventArgs args)
@@ -103,7 +106,6 @@ namespace GoogleMobileAds.Api
             {
                 get; private set;
             }
-
 
             public Builder ForCustomNativeAd(string templateId)
             {

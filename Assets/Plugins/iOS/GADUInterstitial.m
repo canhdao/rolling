@@ -7,7 +7,6 @@
 
 #import "GADUPluginUtil.h"
 #import "UnityAppController.h"
-#import "UnityInterface.h"
 
 @interface GADUInterstitial () <GADInterstitialDelegate>
 @end
@@ -67,10 +66,6 @@
 }
 
 - (void)interstitialWillPresentScreen:(GADInterstitial *)ad {
-  if ([GADUPluginUtil pauseOnBackground]) {
-    UnityPause(YES);
-  }
-
   if (self.willPresentCallback) {
     self.willPresentCallback(self.interstitialClient);
   }
@@ -81,10 +76,6 @@
 }
 
 - (void)interstitialDidDismissScreen:(GADInterstitial *)ad {
-  if (UnityIsPaused()) {
-    UnityPause(NO);
-  }
-
   if (self.didDismissCallback) {
     self.didDismissCallback(self.interstitialClient);
   }

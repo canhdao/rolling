@@ -1,4 +1,4 @@
-// Copyright (C) 2015 Google, Inc.
+// Copyright (C) 2016 Google, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,36 +19,36 @@ using GoogleMobileAds.Common;
 
 namespace GoogleMobileAds.Api
 {
-    public class BannerView
+    public class NativeExpressAdView
     {
-        private IBannerClient client;
+        private INativeExpressAdClient client;
 
-        // Creates a BannerView and adds it to the view hierarchy.
-        public BannerView(string adUnitId, AdSize adSize, AdPosition position)
+        // Creates a NativeExpressAd and adds it to the view hierarchy.
+        public NativeExpressAdView(string adUnitId, AdSize adSize, AdPosition position)
         {
             Type googleMobileAdsClientFactory = Type.GetType(
                 "GoogleMobileAds.GoogleMobileAdsClientFactory,Assembly-CSharp");
             MethodInfo method = googleMobileAdsClientFactory.GetMethod(
-                "BuildBannerClient",
+                "BuildNativeExpressAdClient",
                 BindingFlags.Static | BindingFlags.Public);
-            this.client = (IBannerClient)method.Invoke(null, null);
-            client.CreateBannerView(adUnitId, adSize, position);
+            this.client = (INativeExpressAdClient)method.Invoke(null, null);
+            this.client.CreateNativeExpressAdView(adUnitId, adSize, position);
 
-            ConfigureBannerEvents();
+            ConfigureNativeExpressAdEvents();
         }
 
-        // Creates a BannerView with a custom position.
-        public BannerView(string adUnitId, AdSize adSize, int x, int y)
+        // Creates a NativeExpressAd with a custom position.
+        public NativeExpressAdView(string adUnitId, AdSize adSize, int x, int y)
         {
             Type googleMobileAdsClientFactory = Type.GetType(
                 "GoogleMobileAds.GoogleMobileAdsClientFactory,Assembly-CSharp");
             MethodInfo method = googleMobileAdsClientFactory.GetMethod(
-                "BuildBannerClient",
+                "BuildNativeExpressAdClient",
                 BindingFlags.Static | BindingFlags.Public);
-            this.client = (IBannerClient)method.Invoke(null, null);
-            client.CreateBannerView(adUnitId, adSize, x, y);
+            this.client = (INativeExpressAdClient)method.Invoke(null, null);
+            this.client.CreateNativeExpressAdView(adUnitId, adSize, x, y);
 
-            ConfigureBannerEvents();
+            ConfigureNativeExpressAdEvents();
         }
 
         // These are the ad callback events that can be hooked into.
@@ -62,35 +62,35 @@ namespace GoogleMobileAds.Api
 
         public event EventHandler<EventArgs> OnAdLeavingApplication;
 
-        // Loads an ad into the BannerView.
+        // Loads a native express ad.
         public void LoadAd(AdRequest request)
         {
-            client.LoadAd(request);
+            this.client.LoadAd(request);
         }
 
-        // Hides the BannerView from the screen.
+        // Hides the NativeExpressAdView from the screen.
         public void Hide()
         {
-            client.HideBannerView();
+            this.client.HideNativeExpressAdView();
         }
 
-        // Shows the BannerView on the screen.
+        // Shows the NativeExpressAdView on the screen.
         public void Show()
         {
-            client.ShowBannerView();
+            this.client.ShowNativeExpressAdView();
         }
 
-        // Destroys the BannerView.
+        // Destroys the NativeExpressAdView.
         public void Destroy()
         {
-            client.DestroyBannerView();
+            this.client.DestroyNativeExpressAdView();
         }
 
-        private void ConfigureBannerEvents()
+        private void ConfigureNativeExpressAdEvents()
         {
             this.client.OnAdLoaded += (sender, args) =>
             {
-                if (this.OnAdLoaded != null)
+                if(this.OnAdLoaded != null)
                 {
                     this.OnAdLoaded(this, args);
                 }
@@ -98,7 +98,7 @@ namespace GoogleMobileAds.Api
 
             this.client.OnAdFailedToLoad += (sender, args) =>
             {
-                if (this.OnAdFailedToLoad != null)
+                if(this.OnAdFailedToLoad != null)
                 {
                     this.OnAdFailedToLoad(this, args);
                 }
@@ -106,7 +106,7 @@ namespace GoogleMobileAds.Api
 
             this.client.OnAdOpening += (sender, args) =>
             {
-                if (this.OnAdOpening != null)
+                if(this.OnAdOpening != null)
                 {
                     this.OnAdOpening(this, args);
                 }
@@ -114,7 +114,7 @@ namespace GoogleMobileAds.Api
 
             this.client.OnAdClosed += (sender, args) =>
             {
-                if (this.OnAdClosed != null)
+                if(this.OnAdClosed != null)
                 {
                     this.OnAdClosed(this, args);
                 }
@@ -122,7 +122,7 @@ namespace GoogleMobileAds.Api
 
             this.client.OnAdLeavingApplication += (sender, args) =>
             {
-                if (this.OnAdLeavingApplication != null)
+                if(this.OnAdLeavingApplication != null)
                 {
                     this.OnAdLeavingApplication(this, args);
                 }

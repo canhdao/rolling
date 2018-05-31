@@ -1,4 +1,4 @@
-// Copyright (C) 2015 Google, Inc.
+// Copyright (C) 2016 Google, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,17 +22,17 @@ using UnityEngine;
 
 namespace GoogleMobileAds.Android
 {
-    public class BannerClient : AndroidJavaProxy, IBannerClient
+    public class NativeExpressAdClient : AndroidJavaProxy, INativeExpressAdClient
     {
-        private AndroidJavaObject bannerView;
+        private AndroidJavaObject nativeExpressAdView;
 
-        public BannerClient() : base(Utils.UnityAdListenerClassName)
+        public NativeExpressAdClient() : base(Utils.UnityAdListenerClassName)
         {
             AndroidJavaClass playerClass = new AndroidJavaClass(Utils.UnityActivityClassName);
             AndroidJavaObject activity =
                     playerClass.GetStatic<AndroidJavaObject>("currentActivity");
-            this.bannerView = new AndroidJavaObject(
-                Utils.BannerViewClassName, activity, this);
+            this.nativeExpressAdView = new AndroidJavaObject(
+                Utils.NativeExpressAdViewClassName, activity, this);
         }
 
         public event EventHandler<EventArgs> OnAdLoaded;
@@ -45,18 +45,18 @@ namespace GoogleMobileAds.Android
 
         public event EventHandler<EventArgs> OnAdLeavingApplication;
 
-        // Creates a banner view.
-        public void CreateBannerView(string adUnitId, AdSize adSize, AdPosition position)
+        // Creates a native express ad view.
+        public void CreateNativeExpressAdView(string adUnitId, AdSize adSize, AdPosition position)
         {
-            this.bannerView.Call(
+            this.nativeExpressAdView.Call(
                     "create",
                     new object[3] { adUnitId, Utils.GetAdSizeJavaObject(adSize), (int)position });
         }
 
-        // Creates a banner view with a custom position.
-        public void CreateBannerView(string adUnitId, AdSize adSize, int x, int y)
+        // Creates a native express ad view with a custom position
+        public void CreateNativeExpressAdView(string adUnitId, AdSize adSize, int x, int y)
         {
-            this.bannerView.Call(
+            this.nativeExpressAdView.Call(
                 "create",
                 new object[4] { adUnitId, Utils.GetAdSizeJavaObject(adSize), x, y });
         }
@@ -64,34 +64,40 @@ namespace GoogleMobileAds.Android
         // Loads an ad.
         public void LoadAd(AdRequest request)
         {
-            this.bannerView.Call("loadAd", Utils.GetAdRequestJavaObject(request));
+            this.nativeExpressAdView.Call("loadAd", Utils.GetAdRequestJavaObject(request));
         }
 
-        // Displays the banner view on the screen.
-        public void ShowBannerView()
+        // Set the ad size for the native express ad view.
+        public void SetAdSize(AdSize adSize)
         {
-            this.bannerView.Call("show");
+            this.nativeExpressAdView.Call("setAdSize", Utils.GetAdSizeJavaObject(adSize));
         }
 
-        // Hides the banner view from the screen.
-        public void HideBannerView()
+        // Displays the native express ad view on the screen.
+        public void ShowNativeExpressAdView()
         {
-            this.bannerView.Call("hide");
+            this.nativeExpressAdView.Call("show");
         }
 
-        // Destroys the banner view.
-        public void DestroyBannerView()
+        // Hides the native express ad view from the screen.
+        public void HideNativeExpressAdView()
         {
-            this.bannerView.Call("destroy");
+            this.nativeExpressAdView.Call("hide");
+        }
+
+        // Destroys the native express ad view.
+        public void DestroyNativeExpressAdView()
+        {
+            this.nativeExpressAdView.Call("destroy");
         }
 
         // Returns the mediation adapter class name.
         public string MediationAdapterClassName()
         {
-            return this.bannerView.Call<string>("getMediationAdapterClassName");
+            return this.nativeExpressAdView.Call<string>("getMediationAdapterClassName");
         }
 
-#region Callbacks from UnityBannerAdListener.
+#region Callbacks from UnityAdListener.
 
         public void onAdLoaded()
         {
